@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday!</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: linear-gradient(135deg, #e0f2fe, #bae6fd, #7dd3fc);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      /* --- INTERAKSI AWAL: KOTAK HADIAH --- */
+      .gift-container {
+        text-align: center;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        z-index: 20;
+      }
+
+      .gift-container:hover {
+        transform: scale(1.05);
+      }
+
+      .gift-box {
+        font-size: 80px;
+        animation: bounce-gift 1.5s infinite;
+        display: inline-block;
+      }
+
+      .gift-text {
+        margin-top: 15px;
+        font-size: 1.1rem;
+        color: #0369a1;
+        font-weight: 600;
+        background: rgba(255, 255, 255, 0.6);
+        padding: 8px 20px;
+        border-radius: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      @keyframes bounce-gift {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-15px) rotate(5deg);
+        }
+      }
+
+      /* --- KARTU UCAPAN (TERSEMBUNYI PADA AWALNYA) --- */
+      .card {
+        text-align: center;
+        position: relative;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 40px 50px;
+        border-radius: 24px;
+        box-shadow: 0 15px 35px rgba(3, 105, 161, 0.2);
+        backdrop-filter: blur(10px);
+        border: 2px solid #f0f9ff;
+        z-index: 10;
+        display: none; /* Disembunyikan */
+        opacity: 0;
+        transform: scale(0.8);
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      .card.show {
+        display: block;
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      /* Tulisan HBD Tema Biru */
+      h1 {
+        font-size: 3.5rem;
+        font-weight: 900;
+        color: #0284c7; /* Warna Biru Utama */
+        text-shadow: 2px 2px 8px rgba(2, 132, 199, 0.2);
+        letter-spacing: 3px;
+        margin-bottom: 15px;
+        animation: float-text 3s ease-in-out infinite;
+      }
+
+      p {
+        font-size: 1.2rem;
+        color: #0c4a6e;
+        font-weight: 500;
+        line-height: 1.5;
+      }
+
+      @keyframes float-text {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+
+      /* --- HIASAN DEKORASI (BERFUNGSI SELEPAS KLIK) --- */
+      .decorations {
+        display: none;
+      }
+
+      /* Balon Biru */
+      .balloon {
+        position: absolute;
+        width: 50px;
+        height: 65px;
+        border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+        bottom: -100px;
+        opacity: 0.85;
+        animation: floatUp 7s linear infinite;
+      }
+
+      .balloon::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 22px;
+        width: 0;
+        height: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+      }
+
+      @keyframes floatUp {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-120vh) rotate(20deg);
+          opacity: 0;
+        }
+      }
+
+      /* Konfeti Biru & Perak */
+      .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        top: -20px;
+        animation: fall 4s linear infinite;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(0) rotate(0deg);
+        }
+        100% {
+          transform: translateY(110vh) rotate(360deg);
+        }
+      }
+
+      /* Variasi Warna Semuanya Biru/Sian/Perak */
+      .b1 {
+        left: 10%;
+        background: #0ea5e9;
+        animation-delay: 0s;
+      }
+      .b1::after {
+        border-bottom: 8px solid #0ea5e9;
+      }
+      .b2 {
+        left: 25%;
+        background: #38bdf8;
+        animation-delay: 2s;
+        animation-duration: 9s;
+      }
+      .b2::after {
+        border-bottom: 8px solid #38bdf8;
+      }
+      .b3 {
+        right: 15%;
+        background: #0284c7;
+        animation-delay: 1s;
+        animation-duration: 6s;
+      }
+      .b3::after {
+        border-bottom: 8px solid #0284c7;
+      }
+      .b4 {
+        right: 30%;
+        background: #7dd3fc;
+        animation-delay: 3.5s;
+      }
+      .b4::after {
+        border-bottom: 8px solid #7dd3fc;
+      }
+
+      .c1 {
+        left: 15%;
+        background: #0ea5e9;
+        animation-delay: 0.5s;
+        width: 12px;
+        height: 12px;
+      }
+      .c2 {
+        left: 40%;
+        background: #93c5fd;
+        animation-delay: 1.8s;
+        border-radius: 50%;
+      }
+      .c3 {
+        left: 70%;
+        background: #0284c7;
+        animation-delay: 1s;
+      }
+      .c4 {
+        left: 85%;
+        background: #cbd5e1;
+        animation-delay: 2.5s;
+        width: 8px;
+        height: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="gift-container" id="giftButton" onclick="bukaHadiah()">
+      <div class="gift-box">🎁</div>
+      <div class="gift-text">Ada hadiah untuk mu, klik di sini! ✨</div>
+    </div>
+
+    <div class="decorations" id="decorations">
+      <div class="balloon b1"></div>
+      <div class="balloon b2"></div>
+      <div class="balloon b3"></div>
+      <div class="balloon b4"></div>
+
+      <div class="confetti c1"></div>
+      <div class="confetti c2"></div>
+      <div class="confetti c3"></div>
+      <div class="confetti c4"></div>
+    </div>
+
+    <div class="card" id="birthdayCard">
+      <h1>HAPPY BIRTHDAY :>!</h1>
+      <p>
+        Selamat Ulang Tahun Love💙! Hari-hari dipenuhi dengan kebahagiaan,
+        kegembiraan, dan segala impianmu tercapai. 💙 🎉
+      </p>
+    </div>
+
+    <script>
+      function bukaHadiah() {
+        // Sembunyikan butang hadiah
+        document.getElementById("giftButton").style.display = "none";
+
+        // Paparkan kad ucapan dengan animasi
+        var card = document.getElementById("birthdayCard");
+        card.classList.add("show");
+
+        // Paparkan hiasan balon dan konfeti
+        document.getElementById("decorations").style.display = "block";
+      }
+    </script>
+  </body>
+</html>
